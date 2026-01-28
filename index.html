@@ -61,22 +61,24 @@
       try{
         const res = await fetch('./photos.json', { cache: 'no-store' });
         if(!res.ok) throw new Error('photos.json missing');
-        const files = await res.json();
-        if(!Array.isArray(files) || files.length === 0){
+        const entries = await res.json();
+        if(!Array.isArray(entries) || entries.length === 0){
           statusEl.textContent = 'No photos listed yet. Add filenames to photos.json.';
           return;
         }
         statusEl.textContent = '';
-        files.forEach(file => {
+        entries.forEach(entry => {
+          const normalized = typeof entry === 'string' ? { file: entry, caption: entry } : entry;
+          if(!normalized?.file) return;
           const tile = document.createElement('div');
           tile.className = 'tile';
           const img = document.createElement('img');
-          img.src = `./photos/${file}`;
-          img.alt = file;
+          img.src = `./photos/${normalized.file}`;
+          img.alt = normalized.caption || normalized.file;
           img.loading = 'lazy';
           const cap = document.createElement('div');
           cap.className = 'cap';
-          cap.textContent = file;
+          cap.textContent = normalized.caption || normalized.file;
           tile.appendChild(img);
           tile.appendChild(cap);
           tile.addEventListener('click', () => openLightbox(img.src));
