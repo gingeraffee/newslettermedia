@@ -3,137 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Relations Committee (ERC)</title>
+    <title>Wednesday Weekly • AAP</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- HEADER WITH LOGO + TITLE -->
-    <header class="site-header">
-        <div class="header-inner">
-            <img src="assets/logo.png" alt="Company logo" class="logo">
-            <div class="header-text">
-                <h1>Employee Relations Committee</h1>
-                <p>Safety trainings • Safety policy development • Report concerns</p>
-            </div>
+    <header>
+        <div class="header-content">
+            <img src="assets/logo.png" alt="AAP Logo" class="logo">
+            <h1>Wednesday Weekly</h1>
+            <p class="tagline">Your weekly photo & video updates from AAP</p>
         </div>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./weeks/index.html">Weekly Archives</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- NAVIGATION -->
-    <nav class="site-nav" aria-label="Primary">
-        <div class="nav-inner">
-            <ul class="nav-list">
-                <li><a href="./index.html" class="nav-link active" aria-current="page">Home</a></li>
-                <li><a href="./announcements/index.html" class="nav-link">Announcements</a></li>
-                <li><a href="./newsletters/index.html" class="nav-link">Newsletters</a></li>
-                <li><a href="./safety/index.html" class="nav-link">Safety</a></li>
-            </ul>
-        </div>
-    </nav>
+    <main>
+        <section class="hero">
+            <h2>Welcome to Wednesday Weekly!</h2>
+            <p>Each Wednesday, we share photos and videos capturing moments from around our AAP facilities. From team celebrations to facility updates, stay connected with what's happening across our locations.</p>
+        </section>
 
-    <!-- MAIN CONTENT -->
-    <div class="container">
-        <!-- PURPOSE CARD -->
-        <div class="card">
-            <h2>Purpose</h2>
-            <p>The Employee Relations Committee (ERC) helps keep our workplace safe by developing and sharing safety policies, training, and preparedness guidance throughout the year. Employees are encouraged to report safety concerns, hazards, near-misses, or suggestions to any ERC member at any time.
-			</p>
-			<p>For emergency readiness, each ERC member is assigned to lead a designated <strong>Safety Zone</strong> and help guide employees during an incident. If you’re unsure which Safety Zone you’re assigned to, ask any ERC member or your supervisor.
-			</p>
-			<p>During any emergency, the <strong>ERC Leader</strong> is the primary on-site safety lead and is responsible for directing the response. The ERC Leader receives <strong>monthly emergency preparedness training</strong> and will follow established procedures to help ensure everyone’s safety.</p>
-			
-        </div>
-
-        <div class="card-row">
-            <!-- OIC CARD -->
-            <div class="card">
-                <h2>Officer-In-Charge (OIC) Order</h2>
-                <ol class="oic">
-                    <li>David Johnson</li>
-                    <li>Nicole Thornton (if above is not present)</li>
-                    <li>Trevor Bowen (if above are not present)</li>
-                    <li>Sydney Strickland (if above are not present)</li>
-                    <li>Desiree Moore (if above are not present)</li>
-                    <li>Susan Smart (if above are not present)</li>
-                    <li>Brandy Hooper</li>
-                    <li>George Euson</li>
-                </ol>
-            </div>
-
-            <!-- ZONES CARD -->
-            <div class="card">
-                <h2>Safety Zone Assignments</h2>
-                <ul class="zones">
-                    <li><strong>Zone 1:</strong> Trevor Bowen</li>
-                    <li><strong>Zone 2:</strong> Desiree Moore</li>
-                    <li><strong>Zone 3:</strong> Sydney Strickland</li>
-                    <li><strong>Zone 4:</strong> Susan Smart</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- MEMBERS GRID -->
-        <div class="card">
-            <h2>ERC Members & Schedules</h2>
-            <div class="grid">
-                <div class="member">
-                    <img src="assets/members/david.jpg" alt="David Johnson">
-                    <h3>David Johnson</h3>
-                    <p>7:00 AM – 4:00 PM | API</p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/nicole.jpg" alt="Nicole Thornton">
-                    <h3>Nicole Thornton</h3>
-                    <p>8:00 AM – 5:00 PM | API</p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/trevor.jpg" alt="Trevor Bowen">
-                    <h3>Trevor Bowen</h3>
-                    <p>10:00 AM – 7:00 PM | API<br><small>Zone 1</small></p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/sydney.jpg" alt="Sydney Strickland">
-                    <h3>Sydney Strickland</h3>
-                    <p>12:00 PM – 9:00 PM | API<br><small>Zone 3</small></p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/desiree.jpg" alt="Desiree Moore">
-                    <h3>Desiree Moore</h3>
-                    <p>8:00 AM – 5:00 PM | API<br><small>Zone 2</small></p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/susan.jpg" alt="Susan Smart">
-                    <h3>Susan Smart</h3>
-                    <p>8:00 AM – 4:30 PM | API<br><small>Zone 4</small></p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/brandy.jpg" alt="Brandy Hooper">
-                    <h3>Brandy Hooper</h3>
-                    <p>8:00 am - 5:00 PM | AAP</p>
-                </div>
-
-                <div class="member">
-                    <img src="assets/members/george.jpg" alt="George Euson">
-                    <h3>George Euson</h3>
-                    <p>REMOTE</p>
+        <section class="latest-week">
+            <h2>Latest Week</h2>
+            <div class="week-card featured">
+                <div class="week-card-content">
+                    <span class="week-badge">NEW</span>
+                    <h3>Week of January 28, 2026</h3>
+                    <p>This week's photos and updates from Memphis and Scottsboro.</p>
+                    <a href="./weeks/2026-01-28.html" class="btn-primary">View This Week</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- EMERGENCY CARD -->
-        <div class="card">
-            <p><strong>For emergencies,</strong> follow standard emergency procedures and listen to your ERC Office-In-Charge.</p>
-        </div>
-    </div>
+        <section class="recent-weeks">
+            <h2>Recent Weeks</h2>
+            <div class="weeks-grid">
+                <!-- Week cards will be added here as you create more weeks -->
+                <div class="week-card">
+                    <div class="week-card-content">
+                        <h3>Week of January 21, 2026</h3>
+                        <p>Last week's highlights and team photos.</p>
+                        <a href="./weeks/2026-01-21.html" class="btn-secondary">View Week</a>
+                    </div>
+                </div>
+                
+                <!-- Add more week cards as needed -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="./weeks/index.html" class="btn-secondary">View All Weeks →</a>
+            </div>
+        </section>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <p>&copy; 2026 Employee Relations Committee. All rights reserved.</p>
-    </div>
+        <section class="info-box">
+            <h3>📸 Submit Photos or Videos</h3>
+            <p>Have photos or videos to share for Wednesday Weekly? Send them to Nicole Thornton in HR or your location manager.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 American Associated Pharmacies. All rights reserved.</p>
+    </footer>
 </body>
 </html>
