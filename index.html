@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Newsletter Media</title>
+  <title>Weekly Wednesday Media</title>
 
   <!-- Your existing stylesheet -->
   <link rel="stylesheet" href="./assets/styles.css">
 
-  <!-- Small add-ons for the video section -->
+  <!-- Light extra styling for the video section + fallback button -->
   <style>
     .section-title { margin: 0 0 6px; font-size: 18px; }
     .section-sub { margin: 0; color: var(--muted, #6b7280); font-size: 14px; }
@@ -22,7 +22,7 @@
     }
 
     .video-card {
-      background: var(--card, #fff);
+      background: var(--card, #ffffff);
       border: 1px solid var(--border, #e5e7eb);
       border-radius: 16px;
       box-shadow: var(--shadow, 0 10px 28px rgba(17,24,39,.08));
@@ -47,11 +47,37 @@
       border: 0;
     }
 
-    .caption {
+    .video-meta {
       margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .video-caption {
       color: var(--muted, #6b7280);
       font-size: 13px;
+      margin: 0;
     }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border, #e5e7eb);
+      background: #fff;
+      color: var(--text, #111827);
+      border-radius: 12px;
+      padding: 9px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .btn:hover { filter: brightness(0.98); }
   </style>
 </head>
 
@@ -59,7 +85,7 @@
   <div class="topbar">
     <div class="container">
       <div class="brand">
-        <h1>Newsletter Media</h1>
+        <h1>Weekly Wednesday Media</h1>
         <p>Photos + videos</p>
       </div>
 
@@ -90,38 +116,7 @@
         <h2 class="section-title">Videos</h2>
         <p class="section-sub">Embedded from Canva.</p>
 
-        <div class="video-grid">
-
-          <!-- VIDEO #1 (Canva) -->
-          <div class="video-card">
-            <div class="embed-wrap">
-              <iframe
-                src="<div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-    src="https://www.canva.com/design/DAG_uhscOlQ/C5xz9iot2yEhYMmtfQlSLw/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-  </iframe>
-</div>
-<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAG_uhscOlQ&#x2F;C5xz9iot2yEhYMmtfQlSLw&#x2F;watch?utm_content=DAG_uhscOlQ&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Noel Bradley's Daughter</a> by Nicole Thornton"
-                allowfullscreen
-                allow="fullscreen *">
-              </iframe>
-            </div>
-            <div class="caption">Add a video caption here (optional)</div>
-          </div>
-
-          <!-- If you have more videos, copy/paste another .video-card block -->
-          <!--
-          <div class="video-card">
-            <div class="embed-wrap">
-              <iframe src="PASTE_ANOTHER_EMBED_LINK" allowfullscreen allow="fullscreen *"></iframe>
-            </div>
-            <div class="caption">Another caption</div>
-          </div>
-          -->
-
-        </div>
+        <div class="video-grid" id="videoGrid"></div>
       </div>
 
       <div class="footer">© 2026</div>
@@ -135,6 +130,27 @@
   </div>
 
   <script>
+    // ========== CONFIG ==========
+    // Add more videos by adding another object to this array.
+    const videos = [
+      {
+        // Your Canva link:
+        url: "https://www.canva.com/design/DAG_uhscOlQ/C5xz9iot2yEhYMmtfQlSLw/watch",
+        caption: "Weekly Wednesday video"
+      }
+    ];
+
+    // ========== HELPERS ==========
+    function normalizeCanvaEmbedUrl(url) {
+      // Canva embeds commonly work by appending ?embed to a view/watch URL.
+      // If you already have query params, append &embed; otherwise ?embed.
+      const hasQuery = url.includes("?");
+      const alreadyEmbed = url.includes("embed");
+      if (alreadyEmbed) return url;
+      return url + (hasQuery ? "&embed" : "?embed");
+    }
+
+    // ========== PHOTOS ==========
     const grid = document.getElementById('grid');
     const statusEl = document.getElementById('status');
     const lightbox = document.getElementById('lightbox');
@@ -168,12 +184,13 @@
         }
 
         statusEl.textContent = '';
+
         items.forEach(item => {
-          // Support BOTH formats:
+          // Supports both formats:
           // 1) "01.jpg"
           // 2) { "file": "01.jpg", "caption": "..." }
           const file = (typeof item === 'string') ? item : item.file;
-          const caption = (typeof item === 'string') ? item : (item.caption || '');
+          const caption = (typeof item === 'string') ? "" : (item.caption || "");
 
           const tile = document.createElement('div');
           tile.className = 'tile';
@@ -185,8 +202,6 @@
 
           const cap = document.createElement('div');
           cap.className = 'cap';
-
-          // Only show caption if provided; otherwise show nothing (no awkward blanks)
           if (caption && caption.trim().length > 0) {
             cap.textContent = caption;
           } else {
@@ -195,7 +210,6 @@
 
           tile.appendChild(img);
           tile.appendChild(cap);
-
           tile.addEventListener('click', () => openLightbox(img.src));
           grid.appendChild(tile);
         });
@@ -204,7 +218,51 @@
       }
     }
 
+    // ========== VIDEOS ==========
+    const videoGrid = document.getElementById('videoGrid');
+
+    function renderVideos() {
+      videos.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+
+        const embedWrap = document.createElement('div');
+        embedWrap.className = 'embed-wrap';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = normalizeCanvaEmbedUrl(v.url);
+        iframe.allowFullscreen = true;
+        iframe.setAttribute('allow', 'fullscreen *');
+
+        embedWrap.appendChild(iframe);
+
+        const meta = document.createElement('div');
+        meta.className = 'video-meta';
+
+        const cap = document.createElement('p');
+        cap.className = 'video-caption';
+        cap.textContent = v.caption || '';
+
+        const link = document.createElement('a');
+        link.className = 'btn';
+        link.href = v.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = 'Open video in Canva ↗';
+
+        meta.appendChild(cap);
+        meta.appendChild(link);
+
+        card.appendChild(embedWrap);
+        card.appendChild(meta);
+
+        videoGrid.appendChild(card);
+      });
+    }
+
+    // Kick off
     loadPhotos();
+    renderVideos();
   </script>
 </body>
 </html>
