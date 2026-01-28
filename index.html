@@ -3,37 +3,132 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weekly Wednesday Media</title>
+  <title>Newsletter Media</title>
+
+  <!-- Your existing stylesheet -->
   <link rel="stylesheet" href="./assets/styles.css">
+
+  <!-- Small add-ons for the video section -->
+  <style>
+    .section-title { margin: 0 0 6px; font-size: 18px; }
+    .section-sub { margin: 0; color: var(--muted, #6b7280); font-size: 14px; }
+    .spacer { height: 14px; }
+
+    .video-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .video-card {
+      background: var(--card, #fff);
+      border: 1px solid var(--border, #e5e7eb);
+      border-radius: 16px;
+      box-shadow: var(--shadow, 0 10px 28px rgba(17,24,39,.08));
+      padding: 14px;
+    }
+
+    .embed-wrap {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 */
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border, #e5e7eb);
+      background: #000;
+    }
+    .embed-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .caption {
+      margin-top: 10px;
+      color: var(--muted, #6b7280);
+      font-size: 13px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="topbar">
     <div class="container">
       <div class="brand">
-        <img class="logo" src="./assets/logo.png" alt="Weekly Wednesday Media logo">
-        <div class="brand-text">
-          <h1>Weekly Wednesday Media</h1>
-          <p>Photo archive</p>
-        </div>
+        <h1>Newsletter Media</h1>
+        <p>Photos + videos</p>
       </div>
+
       <div class="nav">
         <a href="./">Home</a>
-        <a href="./">Photos</a>
+        <a href="#photos">Photos</a>
+        <a href="#videos">Videos</a>
       </div>
     </div>
   </div>
 
   <main>
     <div class="container">
-      <div class="panel">
-        <h2>Gallery</h2>
-        <p class="status" id="status">Loading photos…</p>
+
+      <!-- PHOTOS -->
+      <div class="panel" id="photos">
+        <h2 class="section-title">Photos</h2>
+        <p class="section-sub">Click any photo to view it larger.</p>
+
+        <div class="status" id="status">Loading photos…</div>
         <div class="grid" id="grid"></div>
-        <div class="footer">© 2026</div>
       </div>
+
+      <div class="spacer"></div>
+
+      <!-- VIDEOS -->
+      <div class="panel" id="videos">
+        <h2 class="section-title">Videos</h2>
+        <p class="section-sub">Embedded from Canva.</p>
+
+        <div class="video-grid">
+
+          <!-- VIDEO #1 (Canva) -->
+          <div class="video-card">
+            <div class="embed-wrap">
+              <iframe
+                src="<div style="position: relative; width: 100%; height: 0; padding-top: 177.7778%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+    src="https://www.canva.com/design/DAG_uhscOlQ/C5xz9iot2yEhYMmtfQlSLw/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+  </iframe>
+</div>
+<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAG_uhscOlQ&#x2F;C5xz9iot2yEhYMmtfQlSLw&#x2F;watch?utm_content=DAG_uhscOlQ&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Noel Bradley's Daughter</a> by Nicole Thornton"
+                allowfullscreen
+                allow="fullscreen *">
+              </iframe>
+            </div>
+            <div class="caption">Add a video caption here (optional)</div>
+          </div>
+
+          <!-- If you have more videos, copy/paste another .video-card block -->
+          <!--
+          <div class="video-card">
+            <div class="embed-wrap">
+              <iframe src="PASTE_ANOTHER_EMBED_LINK" allowfullscreen allow="fullscreen *"></iframe>
+            </div>
+            <div class="caption">Another caption</div>
+          </div>
+          -->
+
+        </div>
+      </div>
+
+      <div class="footer">© 2026</div>
     </div>
   </main>
 
+  <!-- Lightbox for photos -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="close" id="closeBtn">Close ✕</button>
     <img id="lightboxImg" alt="Expanded photo" />
@@ -46,51 +141,69 @@
     const lightboxImg = document.getElementById('lightboxImg');
     const closeBtn = document.getElementById('closeBtn');
 
-    function openLightbox(src){
+    function openLightbox(src) {
       lightboxImg.src = src;
       lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden','false');
+      lightbox.setAttribute('aria-hidden', 'false');
     }
-    function closeLightbox(){
+    function closeLightbox() {
       lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden','true');
+      lightbox.setAttribute('aria-hidden', 'true');
       lightboxImg.src = '';
     }
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    async function loadPhotos(){
-      try{
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    async function loadPhotos() {
+      try {
         const res = await fetch('./photos.json', { cache: 'no-store' });
-        if(!res.ok) throw new Error('photos.json missing');
-        const entries = await res.json();
-        if(!Array.isArray(entries) || entries.length === 0){
-          statusEl.textContent = 'No photos listed yet. Add filenames to photos.json.';
+        if (!res.ok) throw new Error('photos.json missing');
+        const items = await res.json();
+
+        if (!Array.isArray(items) || items.length === 0) {
+          statusEl.textContent = 'No photos listed yet. Add entries to photos.json.';
           return;
         }
+
         statusEl.textContent = '';
-        entries.forEach(entry => {
-          const normalized = typeof entry === 'string' ? { file: entry, caption: entry } : entry;
-          if(!normalized?.file) return;
+        items.forEach(item => {
+          // Support BOTH formats:
+          // 1) "01.jpg"
+          // 2) { "file": "01.jpg", "caption": "..." }
+          const file = (typeof item === 'string') ? item : item.file;
+          const caption = (typeof item === 'string') ? item : (item.caption || '');
+
           const tile = document.createElement('div');
           tile.className = 'tile';
+
           const img = document.createElement('img');
-          img.src = `./photos/${normalized.file}`;
-          img.alt = normalized.caption || normalized.file;
+          img.src = `./photos/${file}`;
+          img.alt = caption || file;
           img.loading = 'lazy';
+
           const cap = document.createElement('div');
           cap.className = 'cap';
-          cap.textContent = normalized.caption || normalized.file;
+
+          // Only show caption if provided; otherwise show nothing (no awkward blanks)
+          if (caption && caption.trim().length > 0) {
+            cap.textContent = caption;
+          } else {
+            cap.style.display = 'none';
+          }
+
           tile.appendChild(img);
           tile.appendChild(cap);
+
           tile.addEventListener('click', () => openLightbox(img.src));
           grid.appendChild(tile);
         });
-      } catch(e){
-        statusEl.textContent = 'Could not load photos.json (make sure it exists in the repo root).';
+      } catch (err) {
+        statusEl.textContent = 'Could not load photos.json. Make sure it exists in the repo root.';
       }
     }
+
     loadPhotos();
   </script>
 </body>
