@@ -7,66 +7,65 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="header-content">
+    <header class="site-header">
+        <div class="header-inner">
             <img src="assets/logo.png" alt="AAP Logo" class="logo">
-            <h1>Wednesday Weekly</h1>
-            <p class="tagline">Your weekly photo & video updates from AAP</p>
+            <div class="header-text">
+                <h1>Wednesday Weekly</h1>
+                <p>Your weekly photo & video updates from AAP</p>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./weeks/index.html">Weekly Archives</a></li>
-                <li><a href="./about.html">About</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <main>
-        <section class="hero">
+    <nav class="site-nav" aria-label="Primary">
+        <div class="nav-inner">
+            <ul class="nav-list">
+                <li><a href="./index.html" class="nav-link active" aria-current="page">Home</a></li>
+                <li><a href="./weeks/index.html" class="nav-link">Weekly Archives</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="wrap">
+        <div class="card hero-card">
             <h2>Welcome to Wednesday Weekly!</h2>
             <p>Each Wednesday, we share photos and videos capturing moments from around our AAP facilities. From team celebrations to facility updates, stay connected with what's happening across our locations.</p>
-        </section>
+        </div>
 
-        <section class="latest-week">
-            <h2>Latest Week</h2>
-            <div class="week-card featured">
-                <div class="week-card-content">
-                    <span class="week-badge">NEW</span>
-                    <h3>Week of January 28, 2026</h3>
-                    <p>This week's photos and updates from Memphis and Scottsboro.</p>
-                    <a href="./weeks/2026-01-28.html" class="btn-primary">View This Week</a>
-                </div>
+        <div class="card">
+            <div class="week-header">
+                <h2>This Week</h2>
+                <span class="week-badge-new">NEW</span>
             </div>
-        </section>
+            <div class="weeks-list">
+                <a href="./weeks/2026-01-28.html" class="week-link featured-week">
+                    <span class="week-date">Week of January 28, 2026</span>
+                    <span class="week-desc">Photos and updates from Memphis and Scottsboro</span>
+                </a>
+            </div>
+        </div>
 
-        <section class="recent-weeks">
+        <div class="card">
             <h2>Recent Weeks</h2>
-            <div class="weeks-grid">
-                <!-- Week cards will be added here as you create more weeks -->
-                <div class="week-card">
-                    <div class="week-card-content">
-                        <h3>Week of January 21, 2026</h3>
-                        <p>Last week's highlights and team photos.</p>
-                        <a href="./weeks/2026-01-21.html" class="btn-secondary">View Week</a>
-                    </div>
-                </div>
-                
-                <!-- Add more week cards as needed -->
+            <div class="weeks-list">
+                <a href="./weeks/2026-01-21.html" class="week-link">
+                    <span class="week-date">Week of January 21, 2026</span>
+                    <span class="week-desc">Last week's highlights and team photos</span>
+                </a>
+                <!-- Add more weeks here as they are created -->
             </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="./weeks/index.html" class="btn-secondary">View All Weeks →</a>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="./weeks/index.html" class="btn-secondary">View All Weeks</a>
             </div>
-        </section>
+        </div>
 
-        <section class="info-box">
-            <h3>📸 Submit Photos or Videos</h3>
+        <div class="card info-card">
+            <h2>Submit Photos or Videos</h2>
             <p>Have photos or videos to share for Wednesday Weekly? Send them to Nicole Thornton in HR or your location manager.</p>
-        </section>
+        </div>
     </main>
 
-    <footer>
+    <footer class="footer">
         <p>&copy; 2026 American Associated Pharmacies. All rights reserved.</p>
     </footer>
 </body>
