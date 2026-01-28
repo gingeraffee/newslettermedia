@@ -3,43 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Photo Gallery</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background:#0b0c10; color:#e8e8e8; }
-    header { padding: 24px 16px; max-width: 1100px; margin: 0 auto; }
-    h1 { margin: 0 0 6px; font-size: 28px; }
-    p { margin: 0; opacity: 0.85; }
-    main { max-width: 1100px; margin: 0 auto; padding: 16px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-    .grid img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; cursor: pointer; transition: transform 0.08s ease; }
-    .grid img:hover { transform: scale(1.02); }
-
-    /* Lightbox */
-    .lightbox {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.86);
-      display: none; align-items: center; justify-content: center; padding: 18px;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: min(1100px, 96vw); max-height: 90vh; border-radius: 12px; }
-    .close {
-      position: fixed; top: 14px; right: 14px; background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 12px;
-      border-radius: 10px; cursor: pointer;
-    }
-    .hint { margin-top: 14px; font-size: 13px; opacity: 0.75; }
-    a { color: #9bdcff; }
-  </style>
+  <title>Weekly Wednesday Media</title>
+  <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-  <header>
-    <h1>Photo Gallery</h1>
-    <p>Click any photo to view it larger.</p>
-    <div class="hint">To add photos: upload to <code>/photos</code> and update <code>photos.json</code>.</div>
-  </header>
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">
+        <h1>Weekly Wednesday Media</h1>
+        <p>Photo archive</p>
+      </div>
+      <div class="nav">
+        <a href="./">Home</a>
+        <a href="./">Photos</a>
+      </div>
+    </div>
+  </div>
 
   <main>
-    <div id="status"></div>
-    <div class="grid" id="grid"></div>
+    <div class="container">
+      <div class="panel">
+        <h2>Gallery</h2>
+        <p class="status" id="status">Loading photos…</p>
+        <div class="grid" id="grid"></div>
+        <div class="footer">© 2026</div>
+      </div>
+    </div>
   </main>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
@@ -54,47 +43,49 @@
     const lightboxImg = document.getElementById('lightboxImg');
     const closeBtn = document.getElementById('closeBtn');
 
-    function openLightbox(src) {
+    function openLightbox(src){
       lightboxImg.src = src;
       lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
+      lightbox.setAttribute('aria-hidden','false');
     }
-    function closeLightbox() {
+    function closeLightbox(){
       lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.setAttribute('aria-hidden','true');
       lightboxImg.src = '';
     }
-
     closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-    async function loadPhotos() {
-      statusEl.textContent = 'Loading photos…';
-      try {
+    async function loadPhotos(){
+      try{
         const res = await fetch('./photos.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error('photos.json not found yet');
+        if(!res.ok) throw new Error('photos.json missing');
         const files = await res.json();
-
-        if (!Array.isArray(files) || files.length === 0) {
+        if(!Array.isArray(files) || files.length === 0){
           statusEl.textContent = 'No photos listed yet. Add filenames to photos.json.';
           return;
         }
-
         statusEl.textContent = '';
-        for (const file of files) {
+        files.forEach(file => {
+          const tile = document.createElement('div');
+          tile.className = 'tile';
           const img = document.createElement('img');
           img.src = `./photos/${file}`;
           img.alt = file;
           img.loading = 'lazy';
-          img.addEventListener('click', () => openLightbox(img.src));
-          grid.appendChild(img);
-        }
-      } catch (err) {
-        statusEl.textContent = 'Missing photos.json. Create it and list your photo filenames.';
+          const cap = document.createElement('div');
+          cap.className = 'cap';
+          cap.textContent = file;
+          tile.appendChild(img);
+          tile.appendChild(cap);
+          tile.addEventListener('click', () => openLightbox(img.src));
+          grid.appendChild(tile);
+        });
+      } catch(e){
+        statusEl.textContent = 'Could not load photos.json (make sure it exists in the repo root).';
       }
     }
-
     loadPhotos();
   </script>
 </body>
