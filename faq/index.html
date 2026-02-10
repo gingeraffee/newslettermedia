@@ -19,33 +19,102 @@
             color: #5f6675;
         }
 
+        /* Search */
+        .search-wrap {
+            max-width: 500px;
+            margin: 18px auto 6px;
+            position: relative;
+        }
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            font-size: 16px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 14px 12px 40px;
+            border: 1px solid #e5e7ef;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fff;
+            color: #111;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+        .search-input:focus {
+            border-color: #2a4aa2;
+        }
+        .no-results {
+            text-align: center;
+            color: #5f6675;
+            padding: 32px 16px;
+            display: none;
+        }
+
+        /* Accordion */
         .faq-item {
             background: #fff;
             border: 1px solid #e5e7ef;
             border-radius: 14px;
-            padding: 20px 22px;
             margin: 12px 0;
+            overflow: hidden;
         }
-        .faq-item h3 {
-            margin: 0 0 10px;
+        .faq-item[open] {
+            box-shadow: 0 2px 12px rgba(17,24,39,.06);
+        }
+        .faq-item summary {
+            padding: 18px 22px;
             font-size: 16px;
+            font-weight: 600;
             color: #111;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            user-select: none;
         }
-        .faq-item p {
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        .faq-item summary::after {
+            content: "+";
+            font-size: 20px;
+            font-weight: 400;
+            color: #9ca3af;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .faq-item[open] summary::after {
+            content: "\2212";
+        }
+        .faq-answer {
+            padding: 0 22px 20px;
+        }
+        .faq-answer p {
             margin: 0 0 10px;
             color: #333;
             line-height: 1.6;
         }
-        .faq-item p:last-child {
+        .faq-answer p:last-child {
             margin-bottom: 0;
         }
-        .faq-item ul {
+        .faq-answer ul {
             margin: 6px 0 10px;
             padding-left: 22px;
             color: #333;
             line-height: 1.7;
         }
-        .faq-item ul:last-child {
+        .faq-answer ul:last-child {
             margin-bottom: 0;
         }
 
@@ -117,124 +186,163 @@
             <p>Everything you need to know about the upcoming pay structure change.</p>
         </div>
 
-        <div class="faq-item">
-            <h3>1. Why is the company changing the pay structure?</h3>
-            <p>We want pay to be fair, consistent, and easier to understand. The new structure helps explain how pay is decided and how employees can grow and earn more over time.</p>
+        <div class="search-wrap">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" class="search-input" id="faqSearch" placeholder="Search questions..." aria-label="Search FAQ questions">
         </div>
 
-        <div class="faq-item">
-            <h3>2. Is anyone's pay going down?</h3>
-            <p>No. No employee's pay will be reduced as part of this update.</p>
+        <div id="faqList">
+            <details class="faq-item">
+                <summary>1. Why is the company changing the pay structure?</summary>
+                <div class="faq-answer">
+                    <p>We want pay to be fair, consistent, and easier to understand. The new structure helps explain how pay is decided and how employees can grow and earn more over time.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>2. Is anyone's pay going down?</summary>
+                <div class="faq-answer">
+                    <p>No. No employee's pay will be reduced as part of this update.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>3. How was my pay reviewed?</summary>
+                <div class="faq-answer">
+                    <p>Everyone was reviewed using the same criteria, including:</p>
+                    <ul>
+                        <li>Attendance and reliability</li>
+                        <li>Safety and following procedures</li>
+                        <li>Quality, accuracy, and productivity</li>
+                        <li>Teamwork, communication, and ownership</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>4. What is the starting pay for warehouse roles?</summary>
+                <div class="faq-answer">
+                    <p>Starting pay is $17&ndash;$21 per hour, based on previous warehouse experience.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>5. What are job levels?</summary>
+                <div class="faq-answer">
+                    <p>Job levels help make pay decisions consistent and fair.</p>
+                    <ul>
+                        <li>Most employees start in Level 1</li>
+                        <li>Higher levels (Levels 2&ndash;4) are for employees who consistently perform well and take on more responsibility</li>
+                    </ul>
+                    <p>Levels help guide pay and growth expectations.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>6. Does moving up depend on how long I've worked here?</summary>
+                <div class="faq-answer">
+                    <p>No. Moving up is not automatic and is not based only on tenure. It depends on performance, reliability, and business needs.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>7. How can I earn more pay?</summary>
+                <div class="faq-answer">
+                    <p>There are two main ways:</p>
+                    <ul>
+                        <li>Strong, consistent performance over time</li>
+                        <li>Extra skills or assignments, when the business needs them</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>8. What extra assignments pay more?</summary>
+                <div class="faq-answer">
+                    <p>When the business needs these roles and the employee is trained and performing well:</p>
+                    <table class="premium-table">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Night shift</td><td>+$0.50/hour</td></tr>
+                            <tr><td>Forklift operator</td><td>+$0.50/hour</td></tr>
+                            <tr><td>Controls processing</td><td>+$0.50/hour</td></tr>
+                            <tr><td>Trainer</td><td>+$1.00/hour</td></tr>
+                            <tr><td>Lead</td><td>+$1.00/hour</td></tr>
+                        </tbody>
+                    </table>
+                    <p>These premiums apply only while working in that role.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>9. Are raises automatic every year?</summary>
+                <div class="faq-answer">
+                    <p>No. Raises and level changes are based on performance and business need, not automatic timing.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>10. What does "strong performance" mean?</summary>
+                <div class="faq-answer">
+                    <p>Strong performance includes:</p>
+                    <ul>
+                        <li>Showing up on time and being reliable</li>
+                        <li>Working safely every day</li>
+                        <li>Doing quality work with good accuracy</li>
+                        <li>Being productive and completing work correctly</li>
+                        <li>Being a good teammate and taking ownership</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>11. What if I want to move up or earn more?</summary>
+                <div class="faq-answer">
+                    <p>Let your supervisor know you're interested. Focus on:</p>
+                    <ul>
+                        <li>Reliability and safety</li>
+                        <li>Quality and productivity</li>
+                        <li>Teamwork and professionalism</li>
+                        <li>Learning new skills when opportunities are available</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>12. When will pay changes show up?</summary>
+                <div class="faq-answer">
+                    <p>If your pay is changing, you'll see it on the Thursday, February 12, 2026 payroll.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>13. Can I talk to someone about my pay or growth?</summary>
+                <div class="faq-answer">
+                    <p>Yes. You may request a one-on-one conversation with your supervisor to talk about your role, performance, or growth opportunities.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>14. Will reviews still happen?</summary>
+                <div class="faq-answer">
+                    <p>Yes. Regular reviews will continue as scheduled.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>15. Who can I talk to if I still have questions?</summary>
+                <div class="faq-answer">
+                    <p>Start with your supervisor. They can explain how the structure applies to your role and what growth looks like.</p>
+                </div>
+            </details>
         </div>
 
-        <div class="faq-item">
-            <h3>3. How was my pay reviewed?</h3>
-            <p>Everyone was reviewed using the same criteria, including:</p>
-            <ul>
-                <li>Attendance and reliability</li>
-                <li>Safety and following procedures</li>
-                <li>Quality, accuracy, and productivity</li>
-                <li>Teamwork, communication, and ownership</li>
-            </ul>
-        </div>
-
-        <div class="faq-item">
-            <h3>4. What is the starting pay for warehouse roles?</h3>
-            <p>Starting pay is $17&ndash;$21 per hour, based on previous warehouse experience.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>5. What are job levels?</h3>
-            <p>Job levels help make pay decisions consistent and fair.</p>
-            <ul>
-                <li>Most employees start in Level 1</li>
-                <li>Higher levels (Levels 2&ndash;4) are for employees who consistently perform well and take on more responsibility</li>
-            </ul>
-            <p>Levels help guide pay and growth expectations.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>6. Does moving up depend on how long I've worked here?</h3>
-            <p>No. Moving up is not automatic and is not based only on tenure. It depends on performance, reliability, and business needs.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>7. How can I earn more pay?</h3>
-            <p>There are two main ways:</p>
-            <ul>
-                <li>Strong, consistent performance over time</li>
-                <li>Extra skills or assignments, when the business needs them</li>
-            </ul>
-        </div>
-
-        <div class="faq-item">
-            <h3>8. What extra assignments pay more?</h3>
-            <p>When the business needs these roles and the employee is trained and performing well:</p>
-            <table class="premium-table">
-                <thead>
-                    <tr>
-                        <th>Role</th>
-                        <th>Premium</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Night shift</td><td>+$0.50/hour</td></tr>
-                    <tr><td>Forklift operator</td><td>+$0.50/hour</td></tr>
-                    <tr><td>Controls processing</td><td>+$0.50/hour</td></tr>
-                    <tr><td>Trainer</td><td>+$1.00/hour</td></tr>
-                    <tr><td>Lead</td><td>+$1.00/hour</td></tr>
-                </tbody>
-            </table>
-            <p>These premiums apply only while working in that role.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>9. Are raises automatic every year?</h3>
-            <p>No. Raises and level changes are based on performance and business need, not automatic timing.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>10. What does "strong performance" mean?</h3>
-            <p>Strong performance includes:</p>
-            <ul>
-                <li>Showing up on time and being reliable</li>
-                <li>Working safely every day</li>
-                <li>Doing quality work with good accuracy</li>
-                <li>Being productive and completing work correctly</li>
-                <li>Being a good teammate and taking ownership</li>
-            </ul>
-        </div>
-
-        <div class="faq-item">
-            <h3>11. What if I want to move up or earn more?</h3>
-            <p>Let your supervisor know you're interested. Focus on:</p>
-            <ul>
-                <li>Reliability and safety</li>
-                <li>Quality and productivity</li>
-                <li>Teamwork and professionalism</li>
-                <li>Learning new skills when opportunities are available</li>
-            </ul>
-        </div>
-
-        <div class="faq-item">
-            <h3>12. When will pay changes show up?</h3>
-            <p>If your pay is changing, you'll see it on the Thursday, February 12, 2026 payroll.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>13. Can I talk to someone about my pay or growth?</h3>
-            <p>Yes. You may request a one-on-one conversation with your supervisor to talk about your role, performance, or growth opportunities.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>14. Will reviews still happen?</h3>
-            <p>Yes. Regular reviews will continue as scheduled.</p>
-        </div>
-
-        <div class="faq-item">
-            <h3>15. Who can I talk to if I still have questions?</h3>
-            <p>Start with your supervisor. They can explain how the structure applies to your role and what growth looks like.</p>
-        </div>
+        <p class="no-results" id="noResults">No questions match your search.</p>
 
         <div class="contact-card">
             <h3>Still have questions?</h3>
@@ -245,5 +353,30 @@
     <footer class="footer">
         <p>&copy; 2026 American Associated Pharmacies. All rights reserved.</p>
     </footer>
+
+    <script>
+        const searchInput = document.getElementById('faqSearch');
+        const faqItems = document.querySelectorAll('#faqList .faq-item');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            faqItems.forEach(function (item) {
+                const text = item.textContent.toLowerCase();
+                const matches = !query || text.includes(query);
+                item.style.display = matches ? '' : 'none';
+                if (matches) visibleCount++;
+                if (matches && query) {
+                    item.open = true;
+                } else if (!query) {
+                    item.open = false;
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    </script>
 </body>
 </html>
